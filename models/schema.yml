@@ -27,12 +27,11 @@ models:
        description: "Type of room available for booking."
        data_tests:
          - accepted_values:
-             arguments:
-               values: ['Entire home/apt',
+            values: ['Entire home/apt',
                         'Private room',
                         'Shared room',
                         'Hotel room']
-             config:
+            config:
                severity: warn
 
      - name: minimum_nights
