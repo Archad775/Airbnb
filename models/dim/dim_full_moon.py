@@ -8,7 +8,8 @@ def is_holiday(date_col):
 def model(dbt, session):
     dbt.config(
         materialized = 'table',
-        packages = ["holidays", "pandas"]
+        packages = ["holidays", "pandas"],
+        full_refresh = True
     )
 
 
