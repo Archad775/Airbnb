@@ -32,6 +32,8 @@ models:
                         'Private room',
                         'Shared room',
                         'Hotel room']
+             config:
+               severity: warn
 
      - name: minimum_nights
        description: '{{ doc("dim_listings_cleansed__minimum_nights") }}'
