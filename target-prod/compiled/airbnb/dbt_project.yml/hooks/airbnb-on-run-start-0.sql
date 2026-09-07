@@ -1,0 +1,1 @@
+create table if not exists DBT_PROD.audit_log ( model_name string, run_timestamp timestamp)
