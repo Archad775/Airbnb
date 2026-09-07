@@ -1,4 +1,9 @@
 def model(dbt, session):
+    dbt.config(
+        materialized="table",
+        packages=["pandas"]
+    )
+    
     listings = dbt.ref("dim_listings_cleansed")
 
     return (listings.filter(listings['MINIMUM_NIGHTS'] >= 30)
