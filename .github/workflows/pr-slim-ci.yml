@@ -1,0 +1,40 @@
+name: dbt Slim CI
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  slim-ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dbt
+        run: pip install dbt-snowflake==1.11.3
+
+      - name: Install dbt packages
+        run: dbt deps
+        working-directory: ./
+
+      - name: Download prod manifest
+        uses: actions/download-artifact@v4
+        with:
+          name: prod-manifest
+          path: prod-manifest
+
+      - name: Run dbt Slim CI
+        run: dbt build --profiles-dir prod --target dev --select state:modified+ --defer --state prod-manifest
+        working-directory: ./
+        env:
+          SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+          DBT_USER: ${{ secrets.DBT_USER }}
+          DBT_PASSWORD: ${{ secrets.DBT_PASSWORD }}
+          DBT_ENV_NAME: PR_${{ github.event.pull_request.number }}

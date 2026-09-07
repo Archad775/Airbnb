@@ -1,0 +1,34 @@
+name: dbt PR cleanup
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dbt
+        run: pip install dbt-snowflake==1.11.3
+
+      - name: Install dbt packages
+        run: dbt deps
+        working-directory: ./
+
+      - name: Drop PR schema
+        run: dbt run-operation drop_dev_schemas --profiles-dir prod --target dev
+        working-directory: ./
+        env:
+          SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+          DBT_USER: ${{ secrets.DBT_USER }}
+          DBT_PASSWORD: ${{ secrets.DBT_PASSWORD }}
+          DBT_ENV_NAME: PR_${{ github.event.pull_request.number }}
