@@ -12,7 +12,7 @@ with scr_listings as (
 select
     listing_id,
     listing_name,
-    room_type,
+    CAST(ROOM_TYPE AS VARCHAR) AS room_type,
     case 
         when minimum_nights = 0 then 1
         else minimum_nights end as minimum_nights,
