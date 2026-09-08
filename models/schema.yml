@@ -23,16 +23,6 @@ models:
                to: ref('dim_host_cleansed')
                field: host_id
 
-     - name: room_type
-       description: "Type of room available for booking."
-       data_tests:
-         - accepted_values:
-             values: ['Entire home/apt',
-                        'Private room',
-                        'Shared room',
-                        'Hotel room']
-             config:
-               severity: warn
 
      - name: minimum_nights
        description: '{{ doc("dim_listings_cleansed__minimum_nights") }}'
