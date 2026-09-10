@@ -21,6 +21,7 @@ select
         price_str,
         '$'
     ) :: NUMBER(10, 2) as price,
+    price_str,
     created_at,
     updated_at
 from scr_listings
