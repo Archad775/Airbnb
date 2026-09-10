@@ -9,7 +9,7 @@ airbnb:
       role: TRANSFORM
       
       database: AIRBNB
-      schema: DEV
+      schema: DBT_DEV
       threads: 4
       warehouse: COMPUTE_WH
 
