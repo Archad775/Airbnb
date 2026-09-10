@@ -25,9 +25,11 @@ jobs:
         working-directory: ./
 
       - name: Download prod manifest
-        uses: actions/download-artifact@v4
+        uses: dawidd6/action-download-artifact@v6
         with:
           name: prod-manifest
+          workflow: prod-build.yml
+          branch: main
           path: prod-manifest
 
       - name: Run dbt Slim CI
