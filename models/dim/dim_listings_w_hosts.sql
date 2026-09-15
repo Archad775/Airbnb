@@ -1,3 +1,9 @@
+{{ config(
+    materialized='view',
+    static_analysis='strict'
+) }}
+
+
 WITH
 l AS (
     SELECT
